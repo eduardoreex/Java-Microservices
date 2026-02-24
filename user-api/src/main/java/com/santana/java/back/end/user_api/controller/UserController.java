@@ -1,8 +1,7 @@
 package com.santana.java.back.end.user_api.controller;
 
 import com.santana.java.back.end.user_api.dto.UserDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,19 +33,44 @@ public class UserController {
 
         UserDTO userDTO3 = new UserDTO();
         userDTO3.setNome("bruno");
-        userDTO3.setCpf("445");
-        userDTO3.setEmail("Bruno@gmail.com");
-        userDTO3.setEndereco("Rua w");
-        userDTO3.setTelefone("868379936863");
-        userDTO3.setDataCadastro(new Date());
+            userDTO3.setCpf("445");
+            userDTO3.setEmail("Bruno@gmail.com");
+            userDTO3.setEndereco("Rua w");
+            userDTO3.setTelefone("868379936863");
+            userDTO3.setDataCadastro(new Date());
 
-        usuarios.add(userDTO);
-        usuarios.add(userDTO2);
-        usuarios.add(userDTO3);
-    }
+            usuarios.add(userDTO);
+            usuarios.add(userDTO2);
+            usuarios.add(userDTO3);
+        }
 
-    @GetMapping("/users")
-    public List<UserDTO> getUsers() {
-        return usuarios;
+        @GetMapping("/users")
+        public List<UserDTO> getUsers() {
+            return usuarios;
+        }
+        @GetMapping("/users/{cpf}")
+        public  UserDTO getUsersFiltro(@PathVariable String cpf){
+            for (UserDTO userFilter: usuarios){
+                if (userFilter.getCpf().equals(cpf)) {
+                    return userFilter;
+                }
+            }
+            return null;
+        }
+        @PostMapping("/newUser")
+    public UserDTO inserir (@RequestBody UserDTO userDTO) {
+            userDTO.setDataCadastro(new Date());
+            usuarios.add(userDTO);
+            return userDTO;
+        }
+        @DeleteMapping("/user/{cpf}")
+    public boolean remover (@PathVariable String cpf) {
+        for (UserDTO userFilter: usuarios ) {
+            if (userFilter.getCpf().equals(cpf)) {
+                usuarios.remove(userFilter);
+                return true;
+            }
+        }
+        return false;
+        }
     }
-}
