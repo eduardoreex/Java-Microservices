@@ -1,4 +1,6 @@
 package com.santana.java.back.end.user_api.dto;
+import com.santana.java.back.end.user_api.model.User;
+
 import java.util.Date;
 public class UserDTO {
     private String nome;
@@ -54,5 +56,17 @@ public class UserDTO {
 
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
+
     }
+    public static UserDTO convert(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setNome(user.getNome());
+        userDTO.setEndereco(user.getEndereco());
+        userDTO.setCpf(user.getCpf());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setTelefone(user.getTelefone());
+        userDTO.setDataCadastro(user.getDataCadastro());
+        return userDTO;
+    }
+
 }
