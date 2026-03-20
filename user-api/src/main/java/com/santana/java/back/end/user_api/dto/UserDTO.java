@@ -2,6 +2,8 @@ package com.santana.java.back.end.user_api.dto;
 import com.santana.java.back.end.user_api.model.User;
 
 import java.util.Date;
+import java.util.Optional;
+
 public class UserDTO {
     private String nome;
     private String cpf;
@@ -9,7 +11,6 @@ public class UserDTO {
     private String email;
     private String telefone;
     private Date dataCadastro;
-
     public String getNome() {
         return nome;
     }

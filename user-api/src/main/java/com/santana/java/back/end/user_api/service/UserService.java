@@ -1,6 +1,7 @@
 package com.santana.java.back.end.user_api.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,24 @@ public class UserService {
                 .stream() // 4. Inicia o processamento da lista [cite: 3027, 3037]
                 .map(UserDTO::convert) // 5. Transforma cada User (Banco) em UserDTO (Web)
                 .collect(Collectors.toList()); // 6. Fecha a lista e retorna [cite: 3029, 3039]
+    }
+    public UserDTO findById(long userId) {
+        Optional<User> usuario = userRepository.findById(userId); // Busca no banco pelo ID
+        if (usuario.isPresent()) {
+            return UserDTO.convert(usuario.get()); // Se achou, converte para DTO e envia [cite: 618]
+        }
+        return null; // Se não achou, retorna vazio [cite: 619]
+    }
+    public UserDTO save(UserDTO userDTO) {
+        // Transforma DTO em Entity e pede para o repositório salvar
+        User user = userRepository.save(User.convert(userDTO));
+        return UserDTO.convert(user); // Devolve o resultado como DTO [cite: 622]
+    }
+    public UserDTO delete(long userId) {
+        Optional<User> user = userRepository.findById(userId); // Primeiro, verifica se ele existe [cite: 625]
+        if (user.isPresent()) {
+            userRepository.delete(user.get()); // Se existir, apaga do banco [cite: 629]
+        }
+        return null;
     }
 }

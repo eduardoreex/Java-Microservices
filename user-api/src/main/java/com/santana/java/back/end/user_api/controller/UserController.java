@@ -1,6 +1,14 @@
 package com.santana.java.back.end.user_api.controller;
 
 import com.santana.java.back.end.user_api.dto.UserDTO;
+import com.santana.java.back.end.user_api.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -10,68 +18,26 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    public static List<UserDTO> usuarios = new ArrayList<UserDTO>();
+    @Autowired
+    private UserService userService; // O Controller agora usa o Serviço [cite: 3089-3090]
 
-    @PostConstruct
-    public void initiateList() {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setNome("Eduardo");
-        userDTO.setCpf("621");
-        userDTO.setEmail("eduardo@gmail.com");
-        userDTO.setEndereco("Rua a");
-        userDTO.setTelefone("86988589423");
-        userDTO.setDataCadastro(new Date());
-
-        UserDTO userDTO2 = new UserDTO();
-        userDTO2.setNome("Luiz");
-        userDTO2.setCpf("145");
-        userDTO2.setEmail("luizo@gmail.com");
-        userDTO2.setEndereco("Rua b");
-        userDTO2.setTelefone("86887484904");
-        userDTO2.setDataCadastro(new Date());
-
-
-        UserDTO userDTO3 = new UserDTO();
-        userDTO3.setNome("bruno");
-            userDTO3.setCpf("445");
-            userDTO3.setEmail("Bruno@gmail.com");
-            userDTO3.setEndereco("Rua w");
-            userDTO3.setTelefone("868379936863");
-            userDTO3.setDataCadastro(new Date());
-
-            usuarios.add(userDTO);
-            usuarios.add(userDTO2);
-            usuarios.add(userDTO3);
-        }
-
-        @GetMapping("/users")
-        public List<UserDTO> getUsers() {
-            return usuarios;
-        }
-        @GetMapping("/users/{cpf}")
-        public  UserDTO getUsersFiltro(@PathVariable String cpf){
-            for (UserDTO userFilter: usuarios){
-                if (userFilter.getCpf().equals(cpf)) {
-                    return userFilter;
-                }
-            }
-            return null;
-        }
-        @PostMapping("/newUser")
-    public UserDTO inserir (@RequestBody UserDTO userDTO) {
-            userDTO.setDataCadastro(new Date());
-            usuarios.add(userDTO);
-            return userDTO;
-        }
-        @DeleteMapping("/user/{cpf}")
-    public boolean remover (@PathVariable String cpf) {
-        for (UserDTO userFilter: usuarios ) {
-            if (userFilter.getCpf().equals(cpf)) {
-                usuarios.remove(userFilter);
-                return true;
-            }
-        }
-        return false;
-        }
+    @GetMapping("/user/")
+    public List<UserDTO> getUsers() {
+        return userService.getAll(); // Busca direto no Banco via Serviço [cite: 3092, 3094]
     }
-    
+
+    @GetMapping("/user/{id}")
+    public UserDTO findById(@PathVariable Long id) {
+        return userService.findById(id); // Busca por ID [cite: 3095-3096]
+    }
+
+    @PostMapping("/user")
+    public UserDTO newUser(@RequestBody UserDTO userDTO) {
+        return userService.save(userDTO); // Salva no Banco [cite: 3098-3100]
+    }
+
+    @DeleteMapping("/user/{id}")
+    public UserDTO delete(@PathVariable Long id) {
+        return userService.delete(id); // Deleta do Banco [cite: 3105-3106]
+    }
+}
