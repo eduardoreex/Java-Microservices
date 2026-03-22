@@ -9,35 +9,35 @@ import com.santana.java.back.end.user_api.dto.UserDTO;
 import com.santana.java.back.end.user_api.model.User;
 import com.santana.java.back.end.user_api.repository.UserRepository;
 
-@Service // 1. Indica que esta classe contém a lógica de negócio [cite: 3017, 3021]
+@Service //
 public class UserService {
 
-    @Autowired // 2. O Spring "entrega" o repositório pronto aqui [cite: 3023, 3033]
+    @Autowired
     private UserRepository userRepository;
 
     public List<UserDTO> getAll() {
-        List<User> usuarios = userRepository.findAll(); // 3. Busca tudo no banco [cite: 3026, 3036]
+        List<User> usuarios = userRepository.findAll();
         return usuarios
-                .stream() // 4. Inicia o processamento da lista [cite: 3027, 3037]
-                .map(UserDTO::convert) // 5. Transforma cada User (Banco) em UserDTO (Web)
-                .collect(Collectors.toList()); // 6. Fecha a lista e retorna [cite: 3029, 3039]
+                .stream()
+                .map(UserDTO::convert)
+                .collect(Collectors.toList());
     }
     public UserDTO findById(long userId) {
-        Optional<User> usuario = userRepository.findById(userId); // Busca no banco pelo ID
+        Optional<User> usuario = userRepository.findById(userId);
+
         if (usuario.isPresent()) {
-            return UserDTO.convert(usuario.get()); // Se achou, converte para DTO e envia [cite: 618]
+            return UserDTO.convert(usuario.get());
         }
-        return null; // Se não achou, retorna vazio [cite: 619]
+        return null;
     }
     public UserDTO save(UserDTO userDTO) {
-        // Transforma DTO em Entity e pede para o repositório salvar
         User user = userRepository.save(User.convert(userDTO));
-        return UserDTO.convert(user); // Devolve o resultado como DTO [cite: 622]
+        return UserDTO.convert(user);
     }
     public UserDTO delete(long userId) {
-        Optional<User> user = userRepository.findById(userId); // Primeiro, verifica se ele existe [cite: 625]
+        Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
-            userRepository.delete(user.get()); // Se existir, apaga do banco [cite: 629]
+            userRepository.delete(user.get());
         }
         return null;
     }

@@ -1,13 +1,13 @@
-package com.santana.java.back.end.user_api.model; // O IntelliJ vai te dar o nome certo
+package com.santana.java.back.end.user_api.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
-import com.santana.java.back.end.user_api.dto.UserDTO; // Importante para o metodo convert
+import com.santana.java.back.end.user_api.dto.UserDTO;
 
-@Entity(name = "user") // Nome da tabela no banco [cite: 2966]
+@Entity(name = "user")
 public class  User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID automático [cite: 2969]
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String cpf;

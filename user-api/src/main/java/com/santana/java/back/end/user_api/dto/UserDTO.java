@@ -57,7 +57,6 @@ public class UserDTO {
 
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
-
     }
     public static UserDTO convert(User user) {
         UserDTO userDTO = new UserDTO();
