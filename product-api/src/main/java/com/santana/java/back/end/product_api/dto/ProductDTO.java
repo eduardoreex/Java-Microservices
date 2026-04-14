@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 public class ProductDTO {
 
-    // @NotBlank: É o fiscal mais rigoroso. Ele bloqueia o texto se for nulo (null) e TAMBÉM bloqueia se for apenas um espaço em branco (" ").
     @NotBlank
     private String productIdentifier;
 
@@ -16,14 +15,12 @@ public class ProductDTO {
     @NotBlank
     private String descricao;
 
-    // @NotNull: É o fiscal padrão. Usamos para números (Float) ou objetos (CategoryDTO), pois o @NotBlank só funciona para textos (String).
     @NotNull
     private Float preco;
 
     @NotNull
     private CategoryDTO category; // Dentro da caixa de Produto, viaja uma caixa menor de Categoria!
 
-    // --- GETTERS E SETTERS (Gere com o IntelliJ - Alt + Insert) ---
     public String getProductIdentifier() { return productIdentifier; }
     public void setProductIdentifier(String productIdentifier) { this.productIdentifier = productIdentifier; }
     public String getNome() { return nome; }
@@ -35,7 +32,6 @@ public class ProductDTO {
     public CategoryDTO getCategory() { return category; }
     public void setCategory(CategoryDTO category) { this.category = category; }
 
-    // --- O TRADUTOR INVERSO ---
     public static ProductDTO convert(Product product) {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setNome(product.getNome());
