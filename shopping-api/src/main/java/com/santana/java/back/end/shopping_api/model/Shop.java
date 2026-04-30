@@ -1,6 +1,5 @@
 package com.santana.java.back.end.shopping_api.model;
 
-
 import jakarta.persistence.*;
 
 import java.util.Date;
