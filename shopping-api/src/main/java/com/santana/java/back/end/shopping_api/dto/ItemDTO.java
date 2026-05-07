@@ -20,6 +20,7 @@ public class ItemDTO {
         return price;
     }
 
+
     public void setProductIdentifier(String productIdentifier) {
         this.productIdentifier = productIdentifier;
     }
