@@ -14,9 +14,7 @@ public class Shop {
     private  float total;
     private Date data;
 
-
     @ElementCollection(fetch = FetchType.EAGER)
-
 
     @CollectionTable(name = "item", joinColumns = @JoinColumn(name = "shop_id"))
 
