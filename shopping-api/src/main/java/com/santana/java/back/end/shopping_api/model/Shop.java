@@ -14,7 +14,7 @@ public class Shop {
     private long id;
     private  String userIdentifier;
     private  float total;
-    private Date data;
+    private Date date;
 
     @ElementCollection(fetch = FetchType.EAGER)
 
@@ -25,9 +25,11 @@ public class Shop {
     public long getId() {
         return id;
     }
-    public Date getData() {
-        return data;
+
+    public Date getDate() {
+        return date;
     }
+
     public float getTotal() {
         return total;
     }
@@ -43,9 +45,11 @@ public class Shop {
     public void setTotal(float total) {
         this.total = total;
     }
-    public void setDate(Date data) {
-        this.data = data;
+
+    public void setDate(Date date) {
+        this.date = date;
     }
+
     public void setItems(List<Item> items) {
         this.items = items;
     }
