@@ -50,17 +50,14 @@ public class ShopDTO {
     public void setTotal(Float total) {
         this.total = total;
     }
-
     public void setDate(Date date) {
         this.date = date;
     }
-
     public static ShopDTO convert(Shop shop) {
         ShopDTO shopDTO = new ShopDTO();
         shopDTO.setUserIdentifier(shop.getUserIdentifier());
         shopDTO.setTotal(shopDTO.getTotal());
         shopDTO.setDate(shopDTO.getDate());
-
         if (shop.getItems() != null) {
             shopDTO.setItems(shop.getItems().stream().map(ItemDTO::convert).collect((Collectors.toList())));
         }

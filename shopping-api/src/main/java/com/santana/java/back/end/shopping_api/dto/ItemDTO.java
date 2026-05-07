@@ -33,5 +33,6 @@ public class ItemDTO {
         itemDTO.setProductIdentifier(item.getProductIdentifier());
         itemDTO.setPrice(item.getPrice());
         return itemDTO;
+
     }
 }

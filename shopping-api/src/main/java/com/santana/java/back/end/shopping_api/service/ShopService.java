@@ -31,4 +31,12 @@ public class ShopService {
 
         return ShopDTO.convert(shop);
     }
+
+    public List<ShopDTO> getByUser(String userIdentifier) {
+        List<Shop> shops = shopRepository.findAllByUserIdentifier(userIdentifier);
+
+        return shops.stream()
+                .map(ShopDTO::convert)
+                .collect(Collectors.toList());
+    }
 }

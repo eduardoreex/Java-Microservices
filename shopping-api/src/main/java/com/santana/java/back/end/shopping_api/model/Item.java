@@ -1,5 +1,6 @@
 package com.santana.java.back.end.shopping_api.model;
 
+import com.santana.java.back.end.shopping_api.dto.ItemDTO;
 import jakarta.persistence.Embeddable;
 
 
@@ -22,5 +23,11 @@ public class Item {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+    public static Item convert(ItemDTO itemDTO) {
+        Item item = new Item();
+        item.setProductIdentifier(itemDTO.getProductIdentifier());
+        item.setPrice(itemDTO.getPrice());
+        return item;
     }
 }
