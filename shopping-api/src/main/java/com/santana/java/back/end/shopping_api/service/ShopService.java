@@ -11,30 +11,33 @@ import java.util.stream.Collectors;
 
 @Service
 public class ShopService {
-
     @Autowired
     private ShopRepository shopRepository;
-
     public List<ShopDTO> getAll() {
         return shopRepository.findAll()
                 .stream()
                 .map(ShopDTO::convert)
                 .collect(Collectors.toList());
     }
-
     public ShopDTO save(ShopDTO shopDTO) {
+        float totalGasto = shopDTO.getItems().stream()
+                .map(item -> item.getPrice())
+                .reduce((float) 0, Float::sum);
+        shopDTO.setTotal(totalGasto);
         shopDTO.setDate(new Date());
-
         Shop shop = Shop.convert(shopDTO);
-
         shop = shopRepository.save(shop);
-
         return ShopDTO.convert(shop);
     }
 
     public List<ShopDTO> getByUser(String userIdentifier) {
         List<Shop> shops = shopRepository.findAllByUserIdentifier(userIdentifier);
-
+        return shops.stream()
+                .map(ShopDTO::convert)
+                .collect(Collectors.toList());
+    }
+    public List<ShopDTO> getByDate(ShopDTO shopDTO) {
+        List<Shop> shops = shopRepository.findAllByDateGreaterThanEqual(shopDTO.getDate());
         return shops.stream()
                 .map(ShopDTO::convert)
                 .collect(Collectors.toList());

@@ -1,8 +1,6 @@
 package com.santana.java.back.end.shopping_api.model;
-
 import com.santana.java.back.end.shopping_api.dto.ShopDTO;
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,9 +11,8 @@ public class Shop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private  String userIdentifier;
-    private  float total;
+    private  Float total;
     private Date date;
-
     @ElementCollection(fetch = FetchType.EAGER)
 
     @CollectionTable(name = "item", joinColumns = @JoinColumn(name = "shop_id"))
@@ -25,11 +22,9 @@ public class Shop {
     public long getId() {
         return id;
     }
-
     public Date getDate() {
         return date;
     }
-
     public float getTotal() {
         return total;
     }
@@ -45,18 +40,15 @@ public class Shop {
     public void setTotal(float total) {
         this.total = total;
     }
-
     public void setDate(Date date) {
         this.date = date;
     }
-
     public void setItems(List<Item> items) {
         this.items = items;
     }
     public void setUserIdentifier(String userIdentifier) {
         this.userIdentifier = userIdentifier;
     }
-
     public static Shop convert(ShopDTO shopDTO) {
         Shop shop = new Shop();
         shop.setUserIdentifier(shopDTO.getUserIdentifier());
